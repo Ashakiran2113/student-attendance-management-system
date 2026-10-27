@@ -1,0 +1,40 @@
+// Jenkinsfile for devops/jenkins directory
+pipeline {
+    agent any
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        ansiColor('xterm')
+    }
+    environment {
+        APP_NAME = 'student-attendance-system'
+        DOCKER_IMAGE_BACKEND = "student-attendance-backend:${BUILD_NUMBER}"
+        DOCKER_IMAGE_FRONTEND = "student-attendance-frontend:${BUILD_NUMBER}"
+    }
+    stages {
+        stage('Checkout') { steps { checkout scm } }
+        stage('Install Backend & Frontend Deps') {
+            parallel {
+                stage('Backend') { steps { dir('backend') { sh 'npm ci' } } }
+                stage('Frontend') { steps { dir('frontend') { sh 'npm ci' } } }
+            }
+        }
+        stage('Automated Tests') {
+            steps {
+                dir('backend') { sh 'npm test' }
+            }
+        }
+        stage('Build Frontend Bundle') {
+            steps {
+                dir('frontend') { sh 'npm run build' }
+            }
+        }
+        stage('Container Image Build') {
+            steps {
+                sh 'docker compose build'
+            }
+        }
+    }
+    post {
+        always { cleanWs deleteDirs: true, notFailBuild: true }
+    }
+}

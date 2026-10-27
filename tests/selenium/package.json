@@ -1,0 +1,13 @@
+{
+  "name": "student-attendance-selenium-tests",
+  "version": "1.0.0",
+  "description": "End-to-End Selenium WebDriver Automated Tests for Student Attendance Management System",
+  "main": "attendance.spec.js",
+  "scripts": {
+    "test": "node attendance.spec.js"
+  },
+  "dependencies": {
+    "chromedriver": "^125.0.0",
+    "selenium-webdriver": "^4.21.0"
+  }
+}

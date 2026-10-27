@@ -1,0 +1,22 @@
+{
+  "name": "student-attendance-management-system",
+  "version": "1.0.0",
+  "description": "Student Attendance Management System Using DevOps Tools",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install && cd ../tests/selenium && npm install",
+    "init-db": "cd backend && npm run init-db",
+    "seed": "cd backend && npm run seed",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run dev",
+    "test:backend": "cd backend && npm test",
+    "test:selenium": "cd tests/selenium && npm test",
+    "build:frontend": "cd frontend && npm run build",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

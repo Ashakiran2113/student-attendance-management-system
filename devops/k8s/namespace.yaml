@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: academic-system
+  labels:
+    app.kubernetes.io/name: student-attendance-management
+    app.kubernetes.io/part-of: academic-erp
